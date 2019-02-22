@@ -97,7 +97,7 @@ echo natmask $Netmask >> /etc/network/interfaces
 #
 #Bringing up New Interface###
 #
-ifup Interface
+ifup $Interface
 #
 echo "Job Done....Exit"
 #
