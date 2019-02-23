@@ -11,7 +11,7 @@ echo
 echo Current Interfaces.....
 echo
 echo
-   ip a l
+   ip a l |  grep -e '^[0-9]' -e \inet\ | cut -d '<' -f1
 ###Obtain Variable Value#
 echo
 echo
@@ -68,7 +68,7 @@ echo
 echo Current Interfaces....
 echo
 echo
-ip a l
+ip a l |  grep -e '^[0-9]' -e \inet\ | cut -d '<' -f1
 #
 #Obtain Variable Value###
 #
