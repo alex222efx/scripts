@@ -120,6 +120,6 @@ ifup $Interface
 
 else
 
-echo "else"
+echo "Unsupported Operating System....:("
         exit 1
 fi
