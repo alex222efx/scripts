@@ -1,22 +1,84 @@
 #!/bin/bash
-
-
-
-#CentOS network config
-
-if [ -x "/usr/bin/yum" ]
+#
+#Network config for Ubuntu 18###
+################################
+#
+if [ -x "/usr/sbin/netplan" ]
 then
-echo
-echo
-echo Current Interfaces.....
-echo
-echo
-   ip a l |  grep -e '^[0-9]' -e \inet\ | cut -d '<' -f1
+#
+#Define IP###
+#
+   echo -e "Define IP: \c"
+#
+read IP
+#
+   echo "      addresses:" ""[""$IP\/24"]" >> /etc/netplan/*yaml
+#
+netplan apply
+#
+   echo "Job done.....Exit"
+#
+#Network Configuration for Debian###
+####################################
+#
+elif [ -f /etc/network/interfaces ]
+then
+#
+   echo
+   echo
+   echo Current Interfaces....
+   echo
+   echo
+ip a l |  grep -e '^[0-9]' -e \inet\
+#
+#Obtain Variable Value###
+#
+   echo
+   echo
+   echo -e "Please chose the right logical name for the interface: \c"
+#
+read Interface
+#
+#Append to /etc/network/interface###
+#
+   echo auto $Interface >> /etc/network/interfaces
+   echo iface $Interface inet static >> /etc/network/interfaces
+#
+   echo -e "Define IP: \c"
+#
+read IP
+#
+   echo address $IP >> /etc/network/interfaces
+#
+   echo -e "define Netmask: \c"
+#
+read Netmask
+#
+   echo natmask $Netmask >> /etc/network/interfaces
+#
+#Bringing up New Interface###
+#
+ifup $Interface
+#
+   echo "Job Done....Exit"
+#
+#Network config for CentOS
+#########################
+#
+#elif [ -d "/etc/sysconfig/network-scripts/" ]
+then
+#
+   echo
+   echo
+   echo Current Interfaces.....
+   echo
+   echo
+   ip a l |  grep -e '^[0-9]' -e \inet\
 ###Obtain Variable Value#
-echo
-echo
-echo
-echo -e "Please chose the right logical name for the interface: \c"
+   echo
+   echo
+   echo
+   echo -e "Please chose the right logical name for the interface: \c"
 #
 read Interface
 #
@@ -28,8 +90,8 @@ touch /etc/sysconfig/network-scripts/ifcfg-$Interface
     echo DEVICE="$Interface" >> /etc/sysconfig/network-scripts/ifcfg-$Interface
     echo ONBOOT="yes" >> /etc/sysconfig/network-scripts/ifcfg-$Interface
     echo IPV6INIT="no" >> /etc/sysconfig/network-scripts/ifcfg-$Interface
-
-
+#
+#
 #Define IP###
 #
 echo -e "Define IP: \c"
@@ -48,62 +110,16 @@ read Netmask
 #
 #Bring Up New Interface###
 #
-echo "Bringing up new interface..."
+   echo "Bringing up new interface..."
 #
 ifup $Interface
 #
-echo "Job Done....Exit"
-#
-#
-#
-#Debian Network Config###
-#
-#
-#
-elif [ -x "/usr/bin/apt-get" ]
-then
-#
-echo
-echo
-echo Current Interfaces....
-echo
-echo
-ip a l |  grep -e '^[0-9]' -e \inet\ | cut -d '<' -f1
-#
-#Obtain Variable Value###
-#
-echo
-echo
-echo -e "Please chose the right logical name for the interface: \c"
-#
-read Interface
-#
-#Append to /etc/network/interface###
-#
-echo auto $Interface >> /etc/network/interfaces
-echo iface $Interface inet static >> /etc/network/interfaces
-#
-echo -e "Define IP: \c"
-#
-read IP
-#
-echo address $IP >> /etc/network/interfaces
-#
-echo -e "define Netmask: \c"
-#
-read Netmask
-#
-echo natmask $Netmask >> /etc/network/interfaces
-#
-#Bringing up New Interface###
-#
-ifup $Interface
-#
-echo "Job Done....Exit"
-#
-#If The Distribution is not Supported##
-else
-   echo "Unsupported Linux Distribution"
-   exit 1
+   echo "Job Done....Exit"
 
+
+
+else
+
+echo "else"
+        exit 1
 fi
