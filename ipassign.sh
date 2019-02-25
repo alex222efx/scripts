@@ -29,7 +29,7 @@ then
    echo Current Interfaces....
    echo
    echo
-ip a l
+ifconfig
 #
 #Obtain Variable Value###
 #
