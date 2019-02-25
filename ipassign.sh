@@ -29,7 +29,7 @@ then
    echo Current Interfaces....
    echo
    echo
-ip a l |  grep -e '^[0-9]' -e \inet\
+ip a l
 #
 #Obtain Variable Value###
 #
@@ -73,7 +73,7 @@ then
    echo Current Interfaces.....
    echo
    echo
-   ip a l |  grep -e '^[0-9]' -e \inet\
+ip a l
 ###Obtain Variable Value#
    echo
    echo
