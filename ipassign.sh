@@ -65,7 +65,7 @@ ifup $Interface
 #Network config for CentOS
 #########################
 #
-#elif [ -d "/etc/sysconfig/network-scripts/" ]
+elif [ -d "/etc/sysconfig/network-scripts/" ]
 then
 #
    echo
